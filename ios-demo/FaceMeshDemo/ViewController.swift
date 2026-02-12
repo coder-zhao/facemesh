@@ -23,6 +23,12 @@ final class ViewController: UIViewController {
         session.startRunning()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        previewLayer.frame = view.bounds
+        stickerView.frame = view.bounds
+    }
+
     private func setupPreview() {
         previewLayer.session = session
         previewLayer.videoGravity = .resizeAspectFill
@@ -196,7 +202,9 @@ private final class MeshStickerView: UIView {
               let image,
               let cgImage = image.cgImage,
               requiredLandmarks.isSubset(of: Set(landmarkPoints.keys))
-        else { return }
+        else {
+            return
+        }
 
         let imageRect = CGRect(origin: .zero, size: image.size)
         guard let center = centerPoint() else { return }
